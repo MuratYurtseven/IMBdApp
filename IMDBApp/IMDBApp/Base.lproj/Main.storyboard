@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MgU-wb-ERS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ULh-Qr-nEZ">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
@@ -20,9 +20,6 @@
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="qIL-Na-f7T">
                                 <rect key="frame" x="0.0" y="103" width="393" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="QNE-Rf-rmz"/>
-                                </connections>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="plV-Ez-co0">
                                 <rect key="frame" x="0.0" y="159" width="393" height="659"/>
@@ -34,15 +31,15 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="movieCell" id="4yT-m7-vxT" customClass="ContentCollectionViewCell" customModule="IMDBApp" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="movieCell" id="4yT-m7-vxT" customClass="movieCollectionViewCell" customModule="IMDBApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="180" height="250"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Shv-SW-P2k">
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMa-Gp-LT8">
-                                                    <rect key="frame" x="23" y="185" width="135" height="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMa-Gp-LT8">
+                                                    <rect key="frame" x="23" y="193" width="135" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -57,11 +54,11 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="aMa-Gp-LT8" secondAttribute="trailing" constant="22" id="5TU-v9-AJ5"/>
+                                                <constraint firstItem="aMa-Gp-LT8" firstAttribute="top" secondItem="TNh-td-tRx" secondAttribute="bottom" constant="18" id="Fys-Qr-jks"/>
                                                 <constraint firstItem="aMa-Gp-LT8" firstAttribute="leading" secondItem="Shv-SW-P2k" secondAttribute="leading" constant="23" id="Nen-3a-meC"/>
                                                 <constraint firstItem="TNh-td-tRx" firstAttribute="leading" secondItem="Shv-SW-P2k" secondAttribute="leading" constant="23" id="T0o-yO-fKB"/>
                                                 <constraint firstAttribute="trailing" secondItem="TNh-td-tRx" secondAttribute="trailing" constant="22" id="dKO-41-XBy"/>
                                                 <constraint firstItem="TNh-td-tRx" firstAttribute="top" secondItem="Shv-SW-P2k" secondAttribute="top" constant="5" id="fVk-p2-SCS"/>
-                                                <constraint firstItem="aMa-Gp-LT8" firstAttribute="top" secondItem="TNh-td-tRx" secondAttribute="bottom" constant="10" id="na4-Xc-Glb"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="180" height="250"/>
@@ -87,6 +84,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="IhA-LK-Qd1"/>
                     <connections>
+                        <outlet property="collectionView" destination="plV-Ez-co0" id="tZI-5L-whl"/>
+                        <outlet property="searchBar" destination="qIL-Na-f7T" id="CtT-ua-IFs"/>
                         <segue destination="MgU-wb-ERS" kind="show" identifier="toDetay" id="16P-97-9Ah"/>
                     </connections>
                 </viewController>
