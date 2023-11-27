@@ -21,7 +21,7 @@ class MainPresenter:MainViewToMainPresenterProtocol{
 extension MainPresenter:MainInteractorToMainPresenterProtocol{
     func sendDataToPresenter(sonuc: Array<Movie>) {
         self.mainView?.sendDataToView(sonuc:sonuc)
-        print(sonuc)
+        
     }
     
     

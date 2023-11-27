@@ -18,6 +18,8 @@ class MainViewController: UIViewController {
     var isSearching:Bool = false
     var arananKelime = ""
     
+    var justOne = 0
+    
     var mainPresenterObject: MainViewToMainPresenterProtocol?
     
     
@@ -30,6 +32,8 @@ class MainViewController: UIViewController {
         collectionView.dataSource = self
         
         searchBar.delegate = self
+        
+        
         
         //Router
         
@@ -47,16 +51,19 @@ class MainViewController: UIViewController {
         
         let cellWidth = (width-16)/2
         
-        design.itemSize = CGSize(width: cellWidth, height: cellWidth*1.45)
+        design.itemSize = CGSize(width: cellWidth, height: cellWidth*1.40)
         collectionView!.collectionViewLayout = design}
 
         override func viewWillAppear(_ animated: Bool) {
             if arananKelime != ""{
                 mainPresenterObject?.toGetMovie(searchedMovie:arananKelime)}
             else{
-                mainPresenterObject?.toGetMovie(searchedMovie:"Spider-Man")
-            
+                if justOne == 0{
+                    mainPresenterObject?.toGetMovie(searchedMovie:"Spider-Man")
+                    justOne += 1
+                }
             }
+            
             
         }
 
@@ -75,14 +82,13 @@ class MainViewController: UIViewController {
 extension MainViewController:MainPresenterToMainViewProtocol{
     func sendDataToView(sonuc:Array<Movie>) {
         print("in extension")
-        print(sonuc)
         self.viewGotList = sonuc
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             print("Reload")
         }
         
-        print(sonuc)
+        
     }
 }
 
@@ -118,10 +124,24 @@ extension MainViewController : UICollectionViewDelegate,UICollectionViewDataSour
                 
             }
             
-            cell.layer.borderColor = UIColor.orange.cgColor
-            cell.layer.borderWidth = 2
+            
             cell.layer.cornerRadius = 16
             cell.clipsToBounds = true
+
+
+
+            // Set up shadow
+            cell.contentView.layer.cornerRadius = 32.0
+            cell.contentView.layer.borderWidth = 2.0
+            cell.contentView.layer.borderColor = UIColor.clear.cgColor
+            cell.contentView.layer.masksToBounds = true
+
+            cell.layer.shadowColor = UIColor.lightGray.cgColor
+            cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+            cell.layer.shadowRadius = 16.0
+            cell.layer.shadowOpacity = 4
+            cell.layer.masksToBounds = false
+
             
             return cell
             

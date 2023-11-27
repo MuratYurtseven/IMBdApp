@@ -11,6 +11,10 @@
 		FB224C232B14C695001F96CE /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB224C222B14C695001F96CE /* MainInteractor.swift */; };
 		FB224C252B14C6A2001F96CE /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB224C242B14C6A2001F96CE /* MainPresenter.swift */; };
 		FB224C282B14CC7A001F96CE /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB224C272B14CC7A001F96CE /* MainRouter.swift */; };
+		FB224C2A2B14E56E001F96CE /* DetailProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB224C292B14E56E001F96CE /* DetailProtocols.swift */; };
+		FB224C2C2B14E57B001F96CE /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB224C2B2B14E57B001F96CE /* DetailInteractor.swift */; };
+		FB224C2E2B14E588001F96CE /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB224C2D2B14E588001F96CE /* DetailPresenter.swift */; };
+		FB224C312B14E631001F96CE /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB224C302B14E631001F96CE /* DetailRouter.swift */; };
 		FB3F50412B13A1F300EBCC2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3F50402B13A1F300EBCC2A /* AppDelegate.swift */; };
 		FB3F50432B13A1F300EBCC2A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3F50422B13A1F300EBCC2A /* SceneDelegate.swift */; };
 		FB3F50482B13A1F300EBCC2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB3F50462B13A1F300EBCC2A /* Main.storyboard */; };
@@ -32,6 +36,10 @@
 		FB224C222B14C695001F96CE /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
 		FB224C242B14C6A2001F96CE /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		FB224C272B14CC7A001F96CE /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
+		FB224C292B14E56E001F96CE /* DetailProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProtocols.swift; sourceTree = "<group>"; };
+		FB224C2B2B14E57B001F96CE /* DetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
+		FB224C2D2B14E588001F96CE /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
+		FB224C302B14E631001F96CE /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		FB3F503D2B13A1F300EBCC2A /* IMDBApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IMDBApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB3F50402B13A1F300EBCC2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB3F50422B13A1F300EBCC2A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +140,7 @@
 				FB224C1F2B14C653001F96CE /* detailProtocols */,
 				FB224C1E2B14C646001F96CE /* detailInteractor */,
 				FB224C1D2B14C639001F96CE /* detailPresenter */,
+				FB224C2F2B14E5FE001F96CE /* detailRouter */,
 				FB224C1C2B14C633001F96CE /* detailView */,
 			);
 			path = "detail-module";
@@ -148,6 +157,7 @@
 		FB224C1D2B14C639001F96CE /* detailPresenter */ = {
 			isa = PBXGroup;
 			children = (
+				FB224C2D2B14E588001F96CE /* DetailPresenter.swift */,
 			);
 			path = detailPresenter;
 			sourceTree = "<group>";
@@ -155,6 +165,7 @@
 		FB224C1E2B14C646001F96CE /* detailInteractor */ = {
 			isa = PBXGroup;
 			children = (
+				FB224C2B2B14E57B001F96CE /* DetailInteractor.swift */,
 			);
 			path = detailInteractor;
 			sourceTree = "<group>";
@@ -162,6 +173,7 @@
 		FB224C1F2B14C653001F96CE /* detailProtocols */ = {
 			isa = PBXGroup;
 			children = (
+				FB224C292B14E56E001F96CE /* DetailProtocols.swift */,
 			);
 			path = detailProtocols;
 			sourceTree = "<group>";
@@ -172,6 +184,14 @@
 				FB224C272B14CC7A001F96CE /* MainRouter.swift */,
 			);
 			path = mainRouter;
+			sourceTree = "<group>";
+		};
+		FB224C2F2B14E5FE001F96CE /* detailRouter */ = {
+			isa = PBXGroup;
+			children = (
+				FB224C302B14E631001F96CE /* DetailRouter.swift */,
+			);
+			path = detailRouter;
 			sourceTree = "<group>";
 		};
 		FB3F50342B13A1F300EBCC2A = {
@@ -296,7 +316,11 @@
 				FB3F50432B13A1F300EBCC2A /* SceneDelegate.swift in Sources */,
 				FB3F50652B13B43D00EBCC2A /* Ratings.swift in Sources */,
 				FB3F50632B13B42C00EBCC2A /* MovieDetails.swift in Sources */,
+				FB224C2A2B14E56E001F96CE /* DetailProtocols.swift in Sources */,
 				FB224C232B14C695001F96CE /* MainInteractor.swift in Sources */,
+				FB224C312B14E631001F96CE /* DetailRouter.swift in Sources */,
+				FB224C2C2B14E57B001F96CE /* DetailInteractor.swift in Sources */,
+				FB224C2E2B14E588001F96CE /* DetailPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
