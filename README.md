@@ -23,3 +23,12 @@
 
 
 <img src="https://github.com/MuratYurtseven/IMBdApp-VIPERPattern/assets/123903809/8ed26030-ec44-4562-92eb-574f17251e6c" alt="Detail Page" width="320" height="690">
+
+
+
+
+<img src="https://github.com/MuratYurtseven/IMBdApp-VIPERPattern/assets/123903809/142e706d-eb18-42b2-ac9b-9295419405ae" alt="Detail Page" width="320" height="690">
+
+
+
+
