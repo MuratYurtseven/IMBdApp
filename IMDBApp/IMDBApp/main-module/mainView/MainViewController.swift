@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Alamofire
+
 
 class MainViewController: UIViewController {
     
@@ -14,12 +14,14 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var gotList = [Movie]()
+    var viewGotList = [Movie]()
     var isSearching:Bool = false
     var arananKelime = ""
     
-    var timer:Timer?
-    var shouldFetchData:Bool = true
+    var justOne = 0
+    
+    var mainPresenterObject: MainViewToMainPresenterProtocol?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +32,16 @@ class MainViewController: UIViewController {
         collectionView.dataSource = self
         
         searchBar.delegate = self
+        
+        
+        
+        //Router
+        
+        MainRouter.createModule(ref:self)
+        
+        
         //DegisnOfCollection
-        
-        
+ 
         let design:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         let width = collectionView.frame.width
         
@@ -42,67 +51,64 @@ class MainViewController: UIViewController {
         
         let cellWidth = (width-16)/2
         
-        design.itemSize = CGSize(width: cellWidth, height: cellWidth*1.45)
+        design.itemSize = CGSize(width: cellWidth, height: cellWidth*1.40)
         collectionView!.collectionViewLayout = design}
-        
-        
+
         override func viewWillAppear(_ animated: Bool) {
             if arananKelime != ""{
-                getMovie(searchedMovie: arananKelime)}
+                mainPresenterObject?.toGetMovie(searchedMovie:arananKelime)}
             else{
-                getMovie(searchedMovie: "Spider-Man")
+                if justOne == 0{
+                    mainPresenterObject?.toGetMovie(searchedMovie:"Spider-Man")
+                    justOne += 1
+                }
             }
             
-        }
-      
-        func getMovie(searchedMovie:String){
-            
-            let headers: HTTPHeaders = ["content-type":"application/json","authorization":"apikey 6WHJk9djzrq85r3YgEeqX5:0ObsI1Fq3zveaOGaKOkZuH"]
-            let url = "https://api.collectapi.com/imdb/imdbSearchByName"
-            
-            let params : Parameters = ["query":searchedMovie]
-            
-            AF.request(url,method: .get,parameters: params,headers: headers).validate().responseDecodable(of: MovieResponse.self){ response in
-                
-                switch response.result{
-                case .success(let cevap):
-                    if let results = cevap.result {
-                        self.gotList = results.filter { $0.Type == "movie" }
-                        //filter is used to create a new array (self.gotList) that only includes items where the Type is "movie".
-                        print(self.gotList)
-                    }
-                case .failure(let error):
-                    print("Error \(error.localizedDescription)")}
-                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                    self.collectionView.reloadData()
-                }}
             
         }
+
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "toDetail"{
                 let indeks = sender as! Int
                 let destinationVC = segue.destination as! DetailViewController
-                destinationVC.imbdID = gotList[indeks].imdbID
+                destinationVC.imbdID = viewGotList[indeks].imdbID
                 
             }
         }
         
     }
-    
+
+//Extension To Get List
+extension MainViewController:MainPresenterToMainViewProtocol{
+    func sendDataToView(sonuc:Array<Movie>) {
+        print("in extension")
+        self.viewGotList = sonuc
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            print("Reload")
+        }
+        
+        
+    }
+}
+
+
+
+//Extension Of CollectionView
 extension MainViewController : UICollectionViewDelegate,UICollectionViewDataSource{
         
         func numberOfSections(in collectionView: UICollectionView) -> Int {
             return 1
         }
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return gotList.count
+            return viewGotList.count
         }
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! movieCollectionViewCell
-            cell.movieTitleLabel.text = gotList[indexPath.row].Title
+            cell.movieTitleLabel.text = viewGotList[indexPath.row].Title
             
-            if let url = URL(string: gotList[indexPath.row].Poster!){
-                if gotList[indexPath.row].Poster == "N/A" {
+            if let url = URL(string: viewGotList[indexPath.row].Poster!){
+                if viewGotList[indexPath.row].Poster == "N/A" {
                     cell.movieImageView.image = UIImage(named: "No_Image_Available")
                 }
                 DispatchQueue.global().async {
@@ -118,10 +124,24 @@ extension MainViewController : UICollectionViewDelegate,UICollectionViewDataSour
                 
             }
             
-            cell.layer.borderColor = UIColor.orange.cgColor
-            cell.layer.borderWidth = 2
+            
             cell.layer.cornerRadius = 16
             cell.clipsToBounds = true
+
+
+
+            // Set up shadow
+            cell.contentView.layer.cornerRadius = 32.0
+            cell.contentView.layer.borderWidth = 2.0
+            cell.contentView.layer.borderColor = UIColor.clear.cgColor
+            cell.contentView.layer.masksToBounds = true
+
+            cell.layer.shadowColor = UIColor.lightGray.cgColor
+            cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+            cell.layer.shadowRadius = 16.0
+            cell.layer.shadowOpacity = 4
+            cell.layer.masksToBounds = false
+
             
             return cell
             
@@ -134,7 +154,7 @@ extension MainViewController : UICollectionViewDelegate,UICollectionViewDataSour
     }
     
     
-    
+//Extension Of Searcbar
 extension MainViewController : UISearchBarDelegate{
         
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -142,11 +162,11 @@ extension MainViewController : UISearchBarDelegate{
                 arananKelime = ""
                 isSearching = false
             }
-            else{
+        else{
                 arananKelime = searchText
                 isSearching = true
-                getMovie(searchedMovie: searchText)
-                
+                self.mainPresenterObject?.toGetMovie(searchedMovie: searchText)
+                self.collectionView.reloadData()
             }
         }
     }
